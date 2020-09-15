@@ -1,7 +1,7 @@
 package com.example.testing;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -88,9 +88,9 @@ public class nameActivity extends AppCompatActivity {
                                         progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Email sent for verification. Check Email", Toast.LENGTH_SHORT).show();
                                         sendVerificationEmail();
-                                        //finish();
-                                        Intent myIntent = new Intent(nameActivity.this, loginActivity.class);
-                                        startActivity(myIntent);
+                                        finish();
+                                        //Intent myIntent = new Intent(nameActivity.this, loginActivity.class);
+                                       // startActivity(myIntent);
 
                                     } else {
                                         progressDialog.dismiss();
@@ -118,6 +118,9 @@ public class nameActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Email sent for Verification",Toast.LENGTH_SHORT).show();
                             finish();
                             auth.signOut();
+                            Intent myIntent = new Intent(nameActivity.this, loginActivity.class);
+                             startActivity(myIntent);
+
 
                         }
                         else
