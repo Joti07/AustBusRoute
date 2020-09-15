@@ -24,10 +24,19 @@ public class loginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        email=(TextInputEditText) findViewById(R.id.emailLogin);
-        pass=(TextInputEditText) findViewById(R.id.passwordLogin);
         auth = FirebaseAuth.getInstance();
+        if(auth.getCurrentUser()!=null)
+        {
+            Intent i = new Intent(loginActivity.this,dash_board.class);
+            startActivity(i);
+        }
+        else {
+
+            setContentView(R.layout.activity_login);
+            email=(TextInputEditText) findViewById(R.id.emailLogin);
+            pass=(TextInputEditText) findViewById(R.id.passwordLogin);
+        }
+
     }
 
     public void gotoRegister(View v)
@@ -36,6 +45,11 @@ public class loginActivity extends AppCompatActivity {
         startActivity(myIntent);
 
     }
+   /* public void ok(View v)
+    {
+        Intent myIntent= new Intent(loginActivity.this,dash_board.class);
+        startActivity(myIntent);
+    }*/
 
 
     public void LoginUser(View v)
@@ -54,7 +68,7 @@ public class loginActivity extends AppCompatActivity {
                                 FirebaseUser user = auth.getCurrentUser();
                                 if(user.isEmailVerified())
                                 {
-                                    Intent intent = new Intent(loginActivity.this,UserLocationMainActivity.class);
+                                    Intent intent = new Intent(loginActivity.this,dash_board.class);
                                     startActivity(intent);
                                     finish();
                                 }

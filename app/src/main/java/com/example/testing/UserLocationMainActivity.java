@@ -1,6 +1,6 @@
 package com.example.testing;
 
-import android.Manifest;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -15,13 +15,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import android.view.MenuItem;
 import android.view.View;
@@ -31,10 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,11 +49,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserLocationMainActivity extends AppCompatActivity
-    implements  NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
-    ,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
+        , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     FirebaseAuth auth;
     GoogleMap mMap;
@@ -70,14 +62,14 @@ public class UserLocationMainActivity extends AppCompatActivity
     LocationRequest request;
     LatLng latLng;
 
-    TextView t1_currentName,t2_currentEmail;
+    TextView t1_currentName, t2_currentEmail;
     ImageView i1;
-
 
 
     String current_user_name;
     String current_user_email;
     String current_user_imageUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +79,11 @@ public class UserLocationMainActivity extends AppCompatActivity
         user = auth.getCurrentUser();
         setSupportActionBar(toolbar);
 
-       // image = (CircleImageView) findViewById(R.id.imageView);
 
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // image = (CircleImageView) findViewById(R.id.imageView);
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -97,8 +92,8 @@ public class UserLocationMainActivity extends AppCompatActivity
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle  toggle = new ActionBarDrawerToggle(
-                this,drawer,toolbar,R.string.navigation_drawer_open ,R.string.navigation_drawer_close );
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -107,11 +102,11 @@ public class UserLocationMainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
         View header = navigationView.getHeaderView(0);
         t1_currentName = header.findViewById(R.id.title_text);
         t2_currentEmail = header.findViewById(R.id.email_text);
-        i1 =header.findViewById(R.id.imageView);
+        //View navView =navigationView.inflateHeaderView(R.layout.nav_header_user_location_main);
+        i1 = header.findViewById(R.id.imageView);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -120,12 +115,10 @@ public class UserLocationMainActivity extends AppCompatActivity
                 current_user_name = snapshot.child(user.getUid()).child("name").getValue(String.class);
                 current_user_email = snapshot.child(user.getUid()).child("email").getValue(String.class);
                 current_user_imageUrl = snapshot.child(user.getUid()).child("imageUrl").getValue(String.class);
-
+                //String image = snapshot.child(user.getUid()).child("imageUrl").getValue().toString();
                 t1_currentName.setText(current_user_name);
                 t2_currentEmail.setText(current_user_email);
-
-
-                Picasso.get().load(current_user_imageUrl).placeholder(R.drawable.icon).into(i1);
+               // Picasso.get().load(current_user_imageUrl).placeholder(R.drawable.logo2).into(i1);
 
             }
 
@@ -138,18 +131,14 @@ public class UserLocationMainActivity extends AppCompatActivity
 
     }
 
-    public void onBackPressed(){
+    public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if(drawer.isDrawerOpen(GravityCompat.START))
-        {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else
-        {
+        } else {
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -158,14 +147,14 @@ public class UserLocationMainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.user_location_main, menu);
         return true;
     }
-    public boolean OnOptionsItemSelected(MenuItem item)
-    {
-        /*int id = item.getItemId();
-        if(id == R.id.action_settings)
-        {
-            return true;
-        }*/
-        return  super.onOptionsItemSelected(item);
+
+    public boolean OnOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+
+            this.finish();
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -173,35 +162,57 @@ public class UserLocationMainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id== R.id.nav_joinCircle)
+      /*  if(id== R.id.nav_joinCircle)
         {
             Intent myIntent = new Intent (UserLocationMainActivity.this,JoinCircleActivity.class);
             startActivity(myIntent);
         }
-        else if(id == R.id.nav_signOut)
-        {
+        else*/
+        if (id == R.id.nav_signOut) {
             FirebaseUser user = auth.getCurrentUser();
-            if(user !=null)
-            {
+            if (user != null) {
                 auth.signOut();
                 finish();
-                Intent intent = new Intent(UserLocationMainActivity.this,loginActivity.class);
+                Intent intent = new Intent(UserLocationMainActivity.this, loginActivity.class);
                 startActivity(intent);
 
 
             }
 
-        }
-        else if(id == R.id.nav_shareloc)
-        {
+        } else if (id == R.id.nav_shareloc) {
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
-            i.putExtra(Intent.EXTRA_TEXT,"My location is : "+"https//www.google.com/maps/@"+latLng.latitude+","+latLng.longitude+",17z");
-            startActivity(i.createChooser(i,"Share using: "));
+            //i.putExtra(Intent.EXTRA_TEXT,"My location is : "+"https//play.google.com/store/apps/details?id= "+BuildConfig.APPLICATION_ID+"\n\n"+latLng.latitude+","+latLng.longitude+",17z");
+            i.putExtra(Intent.EXTRA_TEXT, "My location is : " + "https//www.google.com/maps/@" + latLng.latitude + "," + latLng.longitude + ",17z");
+            startActivity(i.createChooser(i, "Share using: "));
 
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById( (R.id.drawer_layout));
+        /*else if(id == R.id.nav_inviteMembers)
+        {
+            Intent myIntent= new Intent(UserLocationMainActivity.this,shareInviteCode.class);
+            startActivity(myIntent);
+
+        }
+        else*/
+        if (id == R.id.nav_myCircle) {
+            Intent myIntent = new Intent(UserLocationMainActivity.this, MyCircleActivity.class);
+            startActivity(myIntent);
+
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById((R.id.drawer_layout));
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -222,25 +233,23 @@ public class UserLocationMainActivity extends AppCompatActivity
     @Override
     public void onLocationChanged(Location location) {
 
-        if(location == null)
-        {
-            Toast.makeText(getApplicationContext(),"Could not get Location",Toast.LENGTH_SHORT).show();
+        if (location == null) {
+            Toast.makeText(getApplicationContext(), "Could not get Location", Toast.LENGTH_SHORT).show();
 
-        }
-        else
-        {
-            latLng = new LatLng(location.getLatitude(),location.getLongitude());
-
+        } else {
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
             MarkerOptions options = new MarkerOptions();
             //options.(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
             options.position(latLng);
             options.title("Current Location");
             mMap.addMarker(options);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14F));
+            databaseReference.child(user.getUid()).child("lat").setValue(latLng.latitude);
+            databaseReference.child(user.getUid()).child("lng").setValue(latLng.longitude);
+            databaseReference.child(user.getUid()).child("isSharing").setValue("true");
         }
 
     }
-
 
 
     @Override
@@ -251,11 +260,10 @@ public class UserLocationMainActivity extends AppCompatActivity
         request.setInterval(3000);
         //LocationServices.FusedLocationApi.requestLocationUpdates(client,request,this);
 
-        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(client,request, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(client, request, this);
 
     }
 

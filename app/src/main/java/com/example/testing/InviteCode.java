@@ -25,7 +25,7 @@ import com.google.firebase.storage.UploadTask;
 
 public class InviteCode extends AppCompatActivity {
 
-    String name,email,password,date, issharing,code;
+    String name,email,password,date,issharing,code;
     Uri imageUri;
     ProgressDialog progressDialog;
 
@@ -73,7 +73,7 @@ public class InviteCode extends AppCompatActivity {
                             user = auth.getCurrentUser();
                             userId =user.getUid();
 
-                            CreateUser createUser = new CreateUser(name,email,password,code,"false","na","na","na",user.getUid());
+                            CreateUser createUser = new CreateUser(name,email,password,"false","na","na",user.getUid());
 
                             //user = auth.getCurrentUser();
 
@@ -90,7 +90,9 @@ public class InviteCode extends AppCompatActivity {
                                                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                                                if(task.isSuccessful())
                                                                {
+
                                                                    String download_image_path = task.getResult().getStorage().getDownloadUrl().toString();
+                                                                   //String download_image_path =
                                                                    reference.child(user.getUid()).child("imageUrl").setValue(download_image_path)
                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                @Override
@@ -98,7 +100,7 @@ public class InviteCode extends AppCompatActivity {
                                                                                    if(task.isSuccessful())
                                                                                    {
                                                                                        progressDialog.dismiss();
-                                                                                         Toast.makeText(getApplicationContext(),"Email sent for verification. Check Email",Toast.LENGTH_SHORT).show();
+                                                                                       Toast.makeText(getApplicationContext(),"Email sent for verification. Check Email",Toast.LENGTH_SHORT).show();
                                                                                        sendVerificationEmail();
                                                                                        //finish();
                                                                                        Intent myIntent = new Intent(InviteCode.this,loginActivity.class);

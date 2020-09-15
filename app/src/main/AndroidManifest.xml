@@ -19,7 +19,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyCircleActivity"></activity>
+        <activity android:name=".AboutUs"></activity>
+        <activity android:name=".ChatForum" />
+        <activity android:name=".MyCircleActivity" />
+        <activity android:name=".dash_board" />
+        <activity android:name=".BusShedule.sixthRoute" />
+        <activity android:name=".BusShedule.fifthRoute" />
+        <activity android:name=".BusShedule.fourthRoute" />
+        <activity android:name=".BusShedule.thirdRoute" />
+        <activity android:name=".BusShedule.secondRoute" />
+        <activity android:name=".BusShedule.firstRoute" />
+        <activity android:name=".BusShedule.BusDetails" />
+        <activity android:name=".shareInviteCode" />
         <activity android:name=".JoinCircleActivity" />
         <activity
             android:name=".UserLocationMainActivity"
@@ -41,16 +52,15 @@
         <activity android:name=".nameActivity" />
         <activity android:name=".passwardActivity" />
         <activity android:name=".register" />
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-
         <activity android:name=".loginActivity">
-        <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

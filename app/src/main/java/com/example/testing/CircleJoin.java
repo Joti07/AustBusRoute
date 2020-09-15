@@ -8,8 +8,5 @@ public class CircleJoin {
         this.circlememberid =circlememberid ;
     }
 
-    public CircleJoin()
-    {
 
-    }
 }

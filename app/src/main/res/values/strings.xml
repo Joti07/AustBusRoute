@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">AustBusTracking</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -23,5 +25,13 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="title_activity_user_location_main">DashBoard</string>
+    <string name="title_activity_user_location_main">Map</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_dashboard">dashboard</string>
+
+    <string name="en">Enter Message</string>
+    <string name="random">Random Text</string>
 </resources>
