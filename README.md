@@ -1,3 +1,1 @@
-Lab Section: A (A1)
-
-Lab Group : 03
+A location tracking with chat forum android app
